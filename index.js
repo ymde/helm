@@ -206,12 +206,8 @@ async function registryLogin(helm) {
 
     if (repoUsername) args.push(`--username=${repoUsername}`);
     if (repoPassword) args.push(`--password=${repoPassword}`);
-
-    core.info(`trying login to registry ${repo}`);
     
-    core.info(await exec.exec(helm, args));
-  } else {
-    core.info(`skip registry`);
+    await exec.exec(helm, args);
   }
 
   return Promise.resolve()
