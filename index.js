@@ -184,6 +184,36 @@ async function addRepo(helm) {
 }
 
 /*
+ * Optionally add a helm repository
+ */
+async function registryLogin(helm) {
+  const repo = getInput("oci-repo");
+  const repoUsername = getInput("oci-repo-username");
+  const repoPassword = getInput("oci-repo-password");
+
+  core.debug(`param: repo = "${repo}"`);
+  core.debug(`param: repoUsername = "${repoUsername}"`);
+  core.debug(`param: repoPassword = "${repoPassword}"`);
+
+  if (repo !== "") {
+    core.debug(`adding custom repository ${repo} with alias ${repoAlias}`);
+
+    const args = [
+      "registry",
+      "login",
+      repo,
+    ]
+
+    if (repoUsername) args.push(`--username=${repoUsername}`);
+    if (repoPassword) args.push(`--password=${repoPassword}`);
+
+    await exec.exec(helm, args);
+  }
+
+  return Promise.resolve()
+}
+
+/*
  * Deploy the release
  */
 async function deploy(helm) {
@@ -285,7 +315,7 @@ async function deploy(helm) {
  * Run executes the helm deployment.
  */
 async function run() {
-  const commands = [addRepo, deploy]
+  const commands = [addRepo, registryLogin, deploy]
 
   try {
     await status("pending");
