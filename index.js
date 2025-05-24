@@ -210,6 +210,8 @@ async function registryLogin(helm) {
     core.info(`trying login to registry ${repo}`);
     
     core.info(await exec.exec(helm, args));
+  } else {
+    core.info(`skip registry`);
   }
 
   return Promise.resolve()
