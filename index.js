@@ -191,9 +191,9 @@ async function registryLogin(helm) {
   const repoUsername = getInput("oci-repo-username");
   const repoPassword = getInput("oci-repo-password");
 
-  core.debug(`param: repo = "${repo}"`);
-  core.debug(`param: repoUsername = "${repoUsername}"`);
-  core.debug(`param: repoPassword = "${repoPassword}"`);
+  core.debug(`param: oci-repo = "${repo}"`);
+  core.debug(`param: ociRepoUsername = "${repoUsername}"`);
+  core.debug(`param: ociRepoPassword = "${repoPassword}"`);
 
   if (repo !== "") {
     core.debug(`adding custom repository ${repo} with alias ${repoAlias}`);
@@ -207,7 +207,9 @@ async function registryLogin(helm) {
     if (repoUsername) args.push(`--username=${repoUsername}`);
     if (repoPassword) args.push(`--password=${repoPassword}`);
 
-    await exec.exec(helm, args);
+    core.info(`trying login to registry ${repo}`);
+    
+    core.info(await exec.exec(helm, args));
   }
 
   return Promise.resolve()
