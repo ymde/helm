@@ -64,6 +64,16 @@ inputs:
   repo-password:
     description: Helm repository password if authentication is needed.
     required: false
+    
+  oci-repo:
+    description: Helm registry to be logged in.
+    required: false
+  oci-repo-username:
+    description: Helm registry username if authentication is needed.
+    required: false
+  oci-repo-password:
+    description: Helm registry password if authentication is needed.
+    required: false
 runs:
   using: docker
   image: docker://ghcr.io/vimeda/helm
