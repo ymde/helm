@@ -196,7 +196,7 @@ async function registryLogin(helm) {
   core.debug(`param: ociRepoPassword = "${repoPassword}"`);
 
   if (repo !== "") {
-    core.debug(`adding custom repository ${repo} with alias ${repoAlias}`);
+    core.debug(`adding custom registry ${repo}`);
 
     const args = [
       "registry",
