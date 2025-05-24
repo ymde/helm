@@ -338,6 +338,7 @@ async function run() {
     core.debug(`param: helm = "${helm}"`);
 
     for(const command of commands) {
+      core.debug(`executing ${command.name}`);
       await command(helm);
     }
 
